@@ -73,19 +73,15 @@ void Simulation::tick()
             subject_collision(*current_checking, *s);
         }
     }
+    
+    RegularMovementStrat regStrat;
+    LockdownMovementStrat lockStrat;
+    SlowdownMovementStrat slowStrat;
 
-    int numberInfected = 0;
-
-    for(Subject& s : _subjects)
-    {
-        s.set_x(s.x() + s.dx() * dt);
-        s.set_y(s.y() + s.dy() * dt);
-
-        if(s.infected())
-        {
-            numberInfected++;
-        }
-    }
+    // Comment out what strat should be used:
+    //int numberInfected = regStrat.move(dt, _subjects, counter/30);
+    int numberInfected = lockStrat.move(dt, _subjects, counter/30);
+    //int numberInfected = slowStrat.move(dt, _subjects, counter/30);
 
     if(counter % 30 == 0)
     {
